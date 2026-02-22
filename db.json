@@ -1,0 +1,121 @@
+{
+  "videos": [
+    {
+      "id": 1,
+      "title": "Mixs – Tohir Sodiqov - Axir...",
+      "views": "3,5 mln marta",
+      "channel": "Music Mixes",
+      "time": "2 kun oldin",
+      "duration": "15:42",
+      "image": "https://picsum.photos/400/250?1"
+    },
+    {
+      "id": 2,
+      "title": "Elmurod Haqnazarov - Yangi qo'shiq 2024",
+      "views": "13 mln marta",
+      "channel": "Elmurod Haqnazarov Official",
+      "time": "1 hafta oldin",
+      "duration": "4:28",
+      "image": "https://picsum.photos/400/250?2"
+    },
+    {
+      "id": 3,
+      "title": "Xcho – Может | Official Video",
+      "views": "4 mln marta",
+      "channel": "XCHO MUSIC",
+      "time": "3 kun oldin",
+      "duration": "3:15",
+      "image": "https://picsum.photos/400/250?3"
+    },
+    {
+      "id": 4,
+      "title": "MiyaGi & Andy Panda - Атака",
+      "views": "791 ming marta",
+      "channel": "MiyaGi & Andy Panda",
+      "time": "5 kun oldin",
+      "duration": "2:56",
+      "image": "https://picsum.photos/400/250?4"
+    },
+    {
+      "id": 5,
+      "title": "Uzbek Xip-Xop 2024 Engilari",
+      "views": "2,1 mln marta",
+      "channel": "Uzbek Comedy",
+      "time": "2 kun oldin",
+      "duration": "8:33",
+      "image": "https://picsum.photos/400/250?5"
+    },
+    {
+      "id": 6,
+      "title": "Dilnoz Ismoilova - Sevgi 2024",
+      "views": "856 ming marta",
+      "channel": "Dilnoz Ismoilova",
+      "time": "4 kun oldin",
+      "duration": "3:45",
+      "image": "https://picsum.photos/400/250?6"
+    },
+    {
+      "id": 7,
+      "title": "Shoxruzxon Abduazimov - Yor Yer",
+      "views": "1,3 mln marta",
+      "channel": "Shoxruzxon Official",
+      "time": "1 hafta oldin",
+      "duration": "4:12",
+      "image": "https://picsum.photos/400/250?7"
+    },
+    {
+      "id": 8,
+      "title": "Ziyoda & Mirjalol - Yigitlar",
+      "views": "645 ming marta",
+      "channel": "Ziyoda Music",
+      "time": "3 kun oldin",
+      "duration": "3:28",
+      "image": "https://picsum.photos/400/250?8"
+    }
+  ],
+  "shorts": [
+    {
+      "id": 1,
+      "title": "Q.zlar blackpink",
+      "views": "1.9m views",
+      "image": "https://picsum.photos/200/350?1"
+    },
+    {
+      "id": 2,
+      "title": "Dance challenge viral video 🔥",
+      "views": "856k views",
+      "image": "https://picsum.photos/200/350?2"
+    },
+    {
+      "id": 3,
+      "title": "Funny moments compilation 2024",
+      "views": "2.3m views",
+      "image": "https://picsum.photos/200/350?3"
+    },
+    {
+      "id": 4,
+      "title": "Street performance amazing reaction",
+      "views": "1.2m views",
+      "image": "https://picsum.photos/200/350?4"
+    },
+    {
+      "id": 5,
+      "title": "Best TikTok trends this week",
+      "views": "3.5m views",
+      "image": "https://picsum.photos/200/350?5"
+    }
+  ],
+  "categories": [
+    "Hammasi",
+    "Musiqa",
+    "Mikslar",
+    "Yangiliklar",
+    "Gaming",
+    "Dance-Pop",
+    "Comedy clubs",
+    "Live",
+    "Sitcoms",
+    "Watched",
+    "New to you"
+  ]
+}
