@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Drawer,
   Toolbar,
@@ -9,6 +9,7 @@ import {
   Divider,
   Typography,
   Box,
+  Avatar,
 } from "@mui/material";
 import {
   Home,
@@ -33,10 +34,21 @@ import {
   Help,
   Feedback,
 } from "@mui/icons-material";
+import { getChannels } from "../../api";
 
 const drawerWidth = 240;
 
 const Sidebar = () => {
+  const [followedChannels, setFollowedChannels] = useState([]);
+
+  useEffect(() => {
+    const fetchChannels = async () => {
+      const channels = await getChannels();
+      setFollowedChannels(channels);
+    };
+    fetchChannels();
+  }, []);
+
   return (
     <Drawer
       variant="permanent"
@@ -67,11 +79,37 @@ const Sidebar = () => {
           <ListItemIcon sx={{ color: "#000", minWidth: 40 }}><VideoLibrary /></ListItemIcon>
           <ListItemText primary="Shorts" />
         </ListItem>
+      </List>
 
-        <ListItem button sx={{ borderRadius: 1, mx: 1 }}>
-          <ListItemIcon sx={{ color: "#000", minWidth: 40 }}><Subscriptions /></ListItemIcon>
-          <ListItemText primary="Subscriptions" />
-        </ListItem>
+      <Divider sx={{ bgcolor: "#e0e0e0" }} />
+
+      <List>
+        <Typography sx={{ px: 2, py: 1, fontSize: 14, fontWeight: "bold" }}>
+          Followed Channels
+        </Typography>
+        
+        {followedChannels.filter(channel => channel.followed).map((channel) => (
+          <ListItem button key={channel.id} sx={{ borderRadius: 1, mx: 1 }}>
+            <Avatar 
+              sx={{ 
+                width: 24, 
+                height: 24, 
+                mr: 2, 
+                bgcolor: "#ff0000",
+                fontSize: "12px",
+                color: "#fff"
+              }}
+            >
+              {channel.name?.[0]?.toUpperCase() || ""}
+            </Avatar>
+            <ListItemText 
+              primary={channel.name} 
+              secondary={`${channel.subscribers} subscribers`}
+              primaryTypographyProps={{ fontSize: "14px" }}
+              secondaryTypographyProps={{ fontSize: "12px" }}
+            />
+          </ListItem>
+        ))}
       </List>
 
       <Divider sx={{ bgcolor: "#e0e0e0" }} />

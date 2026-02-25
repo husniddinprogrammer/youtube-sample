@@ -262,8 +262,8 @@
       "id": "1",
       "name": "Music Mixes",
       "description": "",
-      "followed": false,
-      "subscribers": 54
+      "followed": true,
+      "subscribers": 55
     },
     {
       "id": "2",
