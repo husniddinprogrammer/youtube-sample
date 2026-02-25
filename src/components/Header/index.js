@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -11,6 +12,12 @@ import {
 import { Menu, Search, Add, YouTube } from "@mui/icons-material";
 
 const Header = () => {
+  const navigate = useNavigate();
+
+  const handleHomeClick = () => {
+    navigate("/");
+  };
+
   return (
     <AppBar
       position="fixed"
@@ -22,9 +29,10 @@ const Header = () => {
           <IconButton>
             <Menu />
           </IconButton>
-          
-          <YouTube sx={{ fontSize: 28, color: "#FF0000" }} />
-          <Typography fontWeight="bold">YouTube</Typography>
+          <Box onClick={handleHomeClick} sx={{ display: "flex", alignItems: "center", cursor: "pointer" }}>
+            <YouTube sx={{ fontSize: 28, color: "#FF0000" }} />
+            <Typography fontWeight="bold">YouTube</Typography>
+          </Box>
         </Box>
 
         <Box

@@ -31,6 +31,33 @@ const getShorts = async() => {
         return [];
     }
 }
+const getVideoId = async(id) => {
+    try {
+        const response = await api.get(`/videos/${id}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching video by ID:", error);
+        return null;
+    }
+}
+const getCommentsByVideoId = async (id) => {
+    try {
+        const response = await api.get(`/comments?videoId=${id}`);
+        return response.data;
+    } catch (error) {
+        console.error("Error fetching comments by video ID:", error);
+        return [];
+    }
+}
+const addComment = async (comment) => {
+    try {
+        const response = await api.post("/comments", comment);
+        return response.data;
+    } catch (error) {
+        console.error("Error adding comment:", error);
+        return null;
+    }
+}
 
-export { getCategories, getVideos, getShorts };
+export { getCategories, getVideos, getShorts, getVideoId, getCommentsByVideoId, addComment };
 export default api;

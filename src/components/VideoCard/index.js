@@ -1,17 +1,38 @@
 import React from "react";
-import { Card, CardMedia, CardContent, Typography, Box } from "@mui/material";
-import { Block } from "@mui/icons-material";
+import { Card, CardContent, CardMedia, Typography, Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const VideoCard = ({ video }) => {
+  const navigate = useNavigate();
+
+  const handleCardClick = () => {
+    navigate(`/video/${video.id}`);
+  };
+
   return (
-    <Card sx={{ borderRadius: 3, boxShadow: "none", bgcolor: "transparent" }} >
+    <Card 
+      sx={{ 
+        borderRadius: 3, 
+        boxShadow: "none", 
+        bgcolor: "transparent",
+        cursor: "pointer",
+        "&:hover": {
+          "& .card-media": {
+            transform: "scale(1.02)",
+            transition: "transform 0.2s ease-in-out"
+          }
+        }
+      }}
+      onClick={handleCardClick}
+    >
       <Box sx={{ position: "relative", borderRadius: 3, overflow: "hidden" }}>
         <CardMedia
+          className="card-media"
           component="img"
           height="230"
           image={video.image}
           alt={video.title}
-          sx={{ borderRadius: 3 }}
+          sx={{ borderRadius: 3, transition: "transform 0.2s ease-in-out" }}
         />
         <Typography
           variant="caption"

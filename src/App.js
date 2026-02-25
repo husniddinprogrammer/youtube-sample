@@ -1,10 +1,12 @@
 import { Box, Toolbar, Typography, CircularProgress } from "@mui/material";
 import { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import CategoryTabs from "./components/CategoryTabs";
 import VideoGrid from "./components/VideoGrid";
 import ShortsSection from "./components/ShortsSection";
+import VideoDetail from "./components/VideoDetail";
 import { getCategories, getVideos, getShorts } from "./api";
 
 function App() {
@@ -62,17 +64,23 @@ function App() {
   }
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <Header />
-      <Sidebar />
-
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <Toolbar />
-        <CategoryTabs categories={categories} />
-        <VideoGrid videos={videos} />
-        <ShortsSection shorts={shorts} />
-      </Box>
-    </Box>
+    <Router>
+      <Routes>
+        <Route path="/" element={
+          <Box sx={{ display: "flex" }}>
+            <Header />
+            <Sidebar />
+            <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+              <Toolbar />
+              <CategoryTabs categories={categories} />
+              <VideoGrid videos={videos} />
+              <ShortsSection shorts={shorts} />
+            </Box>
+          </Box>
+        } />
+        <Route path="/video/:videoId" element={<VideoDetail />} />
+      </Routes>
+    </Router>
   );
 }
 
