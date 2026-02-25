@@ -2,7 +2,7 @@ import React from "react";
 import { Grid } from "@mui/material";
 import VideoCard from "../VideoCard";
 
-const VideoGrid = ({ videos }) => {
+const VideoGrid = ({ videos, channels }) => {
   return (
     <Grid container spacing={2} sx={{ mt: 1, width: "100%"}} rowSpacing={1}>
       {videos.map((video, index) => (
@@ -12,7 +12,7 @@ const VideoGrid = ({ videos }) => {
           key={index}
           sx={{ display: "flex", justifyContent: "center" }}
         >
-          <VideoCard video={video} />
+          <VideoCard video={video} channels={channels}/>
         </Grid>
       ))}
     </Grid>

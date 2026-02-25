@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Box, Typography, Avatar, Button, TextField, IconButton, Divider } from "@mui/material";
 import { ThumbUp, ThumbDown, Share, Download, MoreHoriz, Send } from "@mui/icons-material";
-import { useActionData, useParams, useNavigate } from "react-router-dom";
-import { getVideos, getShorts, getVideoId, getCommentsByVideoId, addComment } from "../../api";
+import { useParams, useNavigate } from "react-router-dom";
+import { getVideos, getVideoId, getCommentsByVideoId, addComment, getChannels, editDislikes, editLikes, changeSubscribe, getChannelsByVideoId } from "../../api";
 import Header from "../Header";
 
 const VideoDetail = () => {
@@ -12,7 +12,8 @@ const VideoDetail = () => {
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState("");
   const [loading, setLoading] = useState(true);
-  const [allVideos,setAllVideos] = useState([]);
+  const [allVideos, setAllVideos] = useState([]);
+  const [channel, setChannel] = useState(null);
 
   const handleVideoClick = (videoId) => {
     navigate(`/video/${videoId}`);
@@ -24,21 +25,41 @@ const VideoDetail = () => {
     const fetchVideoData = async () => {
       try {
         setLoading(true);
-        
+
         setAllVideos(await getVideos() || []);
         setVideo(await getVideoId(videoId) || null);
         setComments(await getCommentsByVideoId(videoId) || []);
-        
+        setChannel(await getChannelsByVideoId(videoId) || null);
+        setLoading(false);
       } catch (error) {
         console.error("Error fetching video data:", error);
       } finally {
-        setLoading(false);
       }
     };
 
     fetchVideoData();
   }, [videoId]);
 
+  const handleLikeClick = async () => {
+    const result = await editLikes(videoId);
+    if (result) {
+      setVideo(result);
+    }
+  };
+
+  const handleDislikeClick = async () => {
+    const result = await editDislikes(videoId);
+    if (result) {
+      setVideo(result);
+    }
+  };
+
+  const handleSubscribeClick = async () => {
+    const result = await changeSubscribe(video.channelId);
+    if (result) {
+      setChannel(result);
+    }
+  };
   const handleCommentSubmit = async () => {
     if (newComment.trim()) {
       const commentData = {
@@ -50,7 +71,7 @@ const VideoDetail = () => {
         likes: 0,
         replies: []
       };
-      
+
       try {
         const result = await addComment(commentData);
         if (result) {
@@ -135,16 +156,17 @@ const VideoDetail = () => {
                     <Button
                       variant="contained"
                       startIcon={<ThumbUp />}
-                      sx={{ 
-                        bgcolor: "#f1f1f1", 
-                        color: "#030303",
+                      onClick={handleLikeClick}
+                      sx={{
+                        bgcolor: video?.likeStatus ? "#1976d2" : "#f1f1f1",
+                        color: video?.likeStatus ? "#fff" : "#030303",
                         borderRadius: "18px",
                         textTransform: "none",
                         px: 2,
                         py: 1,
                         minWidth: "auto",
                         fontSize: "14px",
-                        "&:hover": { bgcolor: "#e5e5e5" } 
+                        "&:hover": { bgcolor: video?.likeStatus ? "#1565c0" : "#e5e5e5" }
                       }}
                     >
                       {video?.likes || ""}
@@ -152,16 +174,17 @@ const VideoDetail = () => {
                     <Button
                       variant="contained"
                       startIcon={<ThumbDown />}
-                      sx={{ 
-                        bgcolor: "#f1f1f1", 
-                        color: "#030303",
+                      onClick={handleDislikeClick}
+                      sx={{
+                        bgcolor: video?.dislikeStatus ? "#1976d2" : "#f1f1f1",
+                        color: video?.dislikeStatus ? "#fff" : "#030303",
                         borderRadius: "18px",
                         textTransform: "none",
                         px: 2,
                         py: 1,
                         minWidth: "auto",
                         fontSize: "14px",
-                        "&:hover": { bgcolor: "#e5e5e5" } 
+                        "&:hover": { bgcolor: video?.dislikeStatus ? "#1565c0" : "#e5e5e5" }
                       }}
                     >
                       {video?.dislikes || ""}
@@ -169,8 +192,8 @@ const VideoDetail = () => {
                     <Button
                       variant="contained"
                       startIcon={<Share />}
-                      sx={{ 
-                        bgcolor: "#f1f1f1", 
+                      sx={{
+                        bgcolor: "#f1f1f1",
                         color: "#030303",
                         borderRadius: "18px",
                         textTransform: "none",
@@ -178,7 +201,7 @@ const VideoDetail = () => {
                         py: 1,
                         minWidth: "auto",
                         fontSize: "14px",
-                        "&:hover": { bgcolor: "#e5e5e5" } 
+                        "&:hover": { bgcolor: "#e5e5e5" }
                       }}
                     >
                       Share
@@ -186,8 +209,8 @@ const VideoDetail = () => {
                     <Button
                       variant="contained"
                       startIcon={<Download />}
-                      sx={{ 
-                        bgcolor: "#f1f1f1", 
+                      sx={{
+                        bgcolor: "#f1f1f1",
                         color: "#030303",
                         borderRadius: "18px",
                         textTransform: "none",
@@ -195,7 +218,7 @@ const VideoDetail = () => {
                         py: 1,
                         minWidth: "auto",
                         fontSize: "14px",
-                        "&:hover": { bgcolor: "#e5e5e5" } 
+                        "&:hover": { bgcolor: "#e5e5e5" }
                       }}
                     >
                       Download
@@ -214,22 +237,24 @@ const VideoDetail = () => {
                     </Avatar>
                     <Box>
                       <Typography variant="subtitle1" sx={{ fontWeight: "bold", fontSize: "16px" }}>
-                        {video?.channel || ""}
+                        {channel.name || ""}
                       </Typography>
                       <Typography variant="body2" color="text.secondary" sx={{ fontSize: "14px" }}>
-                        {video?.subscribers || ""}
+                        {channel?.subscribers || ""}
                       </Typography>
                     </Box>
                   </Box>
-                  <Button variant="contained" sx={{ 
-                    bgcolor: "#ff0000", 
+                  <Button variant="contained" sx={{
+                    bgcolor: "#ff0000",
                     color: "#fff",
                     borderRadius: "18px",
                     textTransform: "none",
                     px: 3,
-                    "&:hover": { bgcolor: "#cc0000" } 
-                  }}>
-                    Subscribe
+                    "&:hover": { bgcolor: "#cc0000" }
+                  }}
+                    onClick={handleSubscribeClick}
+                  >
+                    {channel?.followed ? "Unsubscribe" : "Subscribe"}
                   </Button>
                 </Box>
 
@@ -262,7 +287,7 @@ const VideoDetail = () => {
                       onChange={(e) => setNewComment(e.target.value)}
                       variant="outlined"
                       size="small"
-                      sx={{ 
+                      sx={{
                         "& .MuiOutlinedInput-root": {
                           borderRadius: "18px",
                           bgcolor: "#f9f9f9"
@@ -275,12 +300,12 @@ const VideoDetail = () => {
                         variant="contained"
                         onClick={handleCommentSubmit}
                         disabled={!newComment.trim()}
-                        sx={{ 
-                          bgcolor: "#065fd4", 
+                        sx={{
+                          bgcolor: "#065fd4",
                           color: "#fff",
                           borderRadius: "18px",
                           textTransform: "none",
-                          "&:hover": { bgcolor: "#0549b8" } 
+                          "&:hover": { bgcolor: "#0549b8" }
                         }}
                       >
                         Comment
@@ -359,17 +384,17 @@ const VideoDetail = () => {
               <Typography variant="h6" sx={{ mb: 2, fontSize: "16px" }}>
                 Related Videos
               </Typography>
-              
+
               {/* Related Videos */}
               <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 {allVideos.map((video) => (
-                  <Box 
-                    key={video.id} 
-                    sx={{ 
-                      display: "flex", 
-                      gap: 2, 
-                      cursor: "pointer" 
-                    }} 
+                  <Box
+                    key={video.id}
+                    sx={{
+                      display: "flex",
+                      gap: 2,
+                      cursor: "pointer"
+                    }}
                     onClick={() => handleVideoClick(video.id)}
                   >
                     <Box sx={{ position: "relative", width: 168, height: 94 }}>
@@ -399,7 +424,7 @@ const VideoDetail = () => {
                         {video.title}
                       </Typography>
                       <Typography variant="caption" sx={{ display: "block", color: "text.secondary", fontSize: "12px", mb: 0.5 }}>
-                        {video.channel}
+                        {video.channel?.name || ""}
                       </Typography>
                       <Typography variant="caption" sx={{ display: "block", color: "text.secondary", fontSize: "12px" }}>
                         {video.views} • {video.time}

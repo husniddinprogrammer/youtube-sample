@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent, CardMedia, Typography, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const VideoCard = ({ video }) => {
+const VideoCard = ({ video, channels }) => {
   const navigate = useNavigate();
 
   const handleCardClick = () => {
@@ -67,7 +67,7 @@ const VideoCard = ({ video }) => {
           {video.title}
         </Typography>
         <Typography variant="caption" color="text.secondary" sx={{ fontSize: "12px",display: 'block'}}>
-          {video.channel}
+          {channels[video.channelId-1].name}
         </Typography>
         <Typography variant="caption" color="text.secondary" sx={{ fontSize: "12px" }}>
           {video.views} • {video.time}

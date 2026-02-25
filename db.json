@@ -4,88 +4,106 @@
       "id": "1",
       "title": "Mixs – Tohir Sodiqov - Axir...",
       "views": "3,5 mln marta",
-      "channel": "Music Mixes",
+      "channelId": 1,
       "time": "2 kun oldin",
       "duration": "15:42",
-      "likes": 156,
-      "dislikes": 12,
-      "image": "https://picsum.photos/400/250?1"
+      "likes": 11,
+      "dislikes": 13,
+      "likeStatus": false,
+      "dislikeStatus": true,
+      "image": "https://picsum.photos/400/250?1",
+      "disLikeStatus": false
     },
     {
       "id": "2",
       "title": "Elmurod Haqnazarov - Yangi qo'shiq 2024",
       "views": "13 mln marta",
-      "channel": "Elmurod Haqnazarov Official",
+      "channelId": 2,
       "time": "1 hafta oldin",
       "duration": "4:28",
       "likes": 234,
       "dislikes": 8,
+      "likeStatus": true,
+      "dislikeStatus": false,
       "image": "https://picsum.photos/400/250?2"
     },
     {
       "id": "3",
       "title": "Xcho – Может | Official Video",
       "views": "4 mln marta",
-      "channel": "XCHO MUSIC",
+      "channelId": 3,
       "time": "3 kun oldin",
       "duration": "3:15",
-      "likes": 123,
+      "likes": 124,
       "dislikes": 5,
+      "likeStatus": true,
+      "dislikeStatus": false,
       "image": "https://picsum.photos/400/250?3"
     },
     {
       "id": "4",
       "title": "MiyaGi & Andy Panda - Атака",
       "views": "791 ming marta",
-      "channel": "MiyaGi & Andy Panda",
+      "channelId": 3,
       "time": "5 kun oldin",
       "duration": "2:56",
-      "likes": 456,
+      "likes": 23,
       "dislikes": 23,
-      "image": "https://picsum.photos/400/250?4"
+      "likeStatus": true,
+      "dislikeStatus": false,
+      "image": "https://picsum.photos/400/250?4",
+      "disLikeStatus": false
     },
     {
       "id": "5",
       "title": "Uzbek Xip-Xop 2024 Engilari",
       "views": "2,1 mln marta",
-      "channel": "Uzbek Comedy",
+      "channelId": 1,
       "time": "2 kun oldin",
       "duration": "8:33",
       "likes": 345,
       "dislikes": 15,
+      "likeStatus": false,
+      "dislikeStatus": false,
       "image": "https://picsum.photos/400/250?5"
     },
     {
       "id": "6",
       "title": "Dilnoz Ismoilova - Sevgi 2024",
       "views": "856 ming marta",
-      "channel": "Dilnoz Ismoilova",
+      "channelId": 1,
       "time": "4 kun oldin",
       "duration": "3:45",
-      "likes": 189,
+      "likes": 190,
       "dislikes": 7,
+      "likeStatus": true,
+      "dislikeStatus": false,
       "image": "https://picsum.photos/400/250?6"
     },
     {
       "id": "7",
       "title": "Shoxruzxon Abduazimov - Yor Yer",
       "views": "1,3 mln marta",
-      "channel": "Shoxruzxon Official",
+      "channelId": 3,
       "time": "1 hafta oldin",
       "duration": "4:12",
       "likes": 298,
       "dislikes": 14,
+      "likeStatus": false,
+      "dislikeStatus": true,
       "image": "https://picsum.photos/400/250?7"
     },
     {
       "id": "8",
       "title": "Ziyoda & Mirjalol - Yigitlar",
       "views": "645 ming marta",
-      "channel": "Ziyoda Music",
+      "channelId": 1,
       "time": "3 kun oldin",
       "duration": "3:28",
       "likes": 156,
       "dislikes": 8,
+      "likeStatus": false,
+      "dislikeStatus": false,
       "image": "https://picsum.photos/400/250?8"
     }
   ],
@@ -237,6 +255,29 @@
       "text": "sdfs",
       "likes": 0,
       "replies": []
+    }
+  ],
+  "channels": [
+    {
+      "id": "1",
+      "name": "Music Mixes",
+      "description": "",
+      "followed": false,
+      "subscribers": 54
+    },
+    {
+      "id": "2",
+      "name": "Kulgu Time",
+      "description": "",
+      "followed": true,
+      "subscribers": 89
+    },
+    {
+      "id": "3",
+      "name": "Music 2026",
+      "description": "",
+      "followed": false,
+      "subscribers": 12
     }
   ]
 }

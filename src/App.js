@@ -7,13 +7,14 @@ import CategoryTabs from "./components/CategoryTabs";
 import VideoGrid from "./components/VideoGrid";
 import ShortsSection from "./components/ShortsSection";
 import VideoDetail from "./components/VideoDetail";
-import { getCategories, getVideos, getShorts } from "./api";
+import { getCategories, getVideos, getShorts, getChannels } from "./api";
 
 function App() {
   const [videos, setVideos] = useState([]);
   const [shorts, setShorts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [channels, setChannels] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -22,12 +23,14 @@ function App() {
         setVideos(await getVideos() || []);
         setShorts(await getShorts() || []);
         setCategories(await getCategories() || []);
+        setChannels(await getChannels() || []);
       } catch (error) {
         console.error('Error fetching data:', error);
         // Fallback to empty arrays if API fails
         setVideos([]);
         setShorts([]);
         setCategories([]);
+        setChannels([]);
       } finally {
         setLoading(false);
       }
@@ -73,7 +76,7 @@ function App() {
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
               <Toolbar />
               <CategoryTabs categories={categories} />
-              <VideoGrid videos={videos} />
+              <VideoGrid videos={videos} channels={channels} />
               <ShortsSection shorts={shorts} />
             </Box>
           </Box>
