@@ -106,16 +106,49 @@
     }
   ],
   "categories": [
-    "Hammasi",
-    "Musiqa",
-    "Mikslar",
-    "Yangiliklar",
-    "Gaming",
-    "Dance-Pop",
-    "Comedy clubs",
-    "Live",
-    "Sitcoms",
-    "Watched",
-    "New to you"
+    {
+      "id": 1,
+      "name": "Hammasi"
+    },
+    {
+      "id": 2,
+      "name": "Musiqa"
+    },
+    {
+      "id": 3,
+      "name": "Mikslar"
+    },
+    {
+      "id": 4,
+      "name": "Yangiliklar"
+    },
+    {
+      "id": 5,
+      "name": "Gaming"
+    },
+    {
+      "id": 6,
+      "name": "Dance-Pop"
+    },
+    {
+      "id": 7,
+      "name": "Comedy clubs"
+    },
+    {
+      "id": 8,
+      "name": "Live"
+    },
+    {
+      "id": 9,
+      "name": "Sitcoms"
+    },
+    {
+      "id": 10,
+      "name": "Watched"
+    },
+    {
+      "id": 11,
+      "name": "New to you"
+    }
   ]
 }

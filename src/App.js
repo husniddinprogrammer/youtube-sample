@@ -1,11 +1,11 @@
-import { Box, Toolbar, Typography } from "@mui/material";
+import { Box, Toolbar, Typography, CircularProgress } from "@mui/material";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import CategoryTabs from "./components/CategoryTabs";
 import VideoGrid from "./components/VideoGrid";
 import ShortsSection from "./components/ShortsSection";
+import { getCategories, getVideos, getShorts } from "./api";
 
 function App() {
   const [videos, setVideos] = useState([]);
@@ -17,11 +17,9 @@ function App() {
     const fetchData = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:3001/api/data');
-        const data = response.data;
-        setVideos(data.videos || []);
-        setShorts(data.shorts || []);
-        setCategories(data.categories || []);
+        setVideos(await getVideos() || []);
+        setShorts(await getShorts() || []);
+        setCategories(await getCategories() || []);
       } catch (error) {
         console.error('Error fetching data:', error);
         // Fallback to empty arrays if API fails
@@ -38,8 +36,27 @@ function App() {
 
   if (loading) {
     return (
-      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
-        <Typography >Yuklanmoqda...</Typography>
+      <Box 
+        sx={{ 
+          display: "flex", 
+          flexDirection: "column",
+          justifyContent: "center", 
+          alignItems: "center", 
+          height: "100vh",
+          gap: 2
+        }}
+      >
+        <CircularProgress 
+          size={60} 
+          thickness={4}
+          sx={{ 
+            color: "blue",
+            animation: "spin 1s linear infinite"
+          }}
+        />
+        <Typography variant="h6" sx={{ color: "blue", fontWeight: 500 }}>
+          Loading...
+        </Typography>
       </Box>
     );
   }

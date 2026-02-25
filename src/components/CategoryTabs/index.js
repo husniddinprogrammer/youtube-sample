@@ -29,7 +29,7 @@ const CategoryTabs = ({ categories }) => {
       scrollButtons="auto"
     >
       {categories.map((category, index) => (
-        <Tab key={index} label={category} />
+        <Tab key={category.id} label={category.name} />
       ))}
     </Tabs>
   );
