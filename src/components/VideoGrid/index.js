@@ -1,6 +1,7 @@
 import React from "react";
 import { Grid } from "@mui/material";
 import VideoCard from "../VideoCard";
+import Modal from "../Modal";
 
 const VideoGrid = ({ videos, channels }) => {
   return (

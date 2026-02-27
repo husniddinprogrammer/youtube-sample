@@ -4,6 +4,7 @@ import { ThumbUp, ThumbDown, Share, Download, MoreHoriz, Send } from "@mui/icons
 import { useParams, useNavigate } from "react-router-dom";
 import { getVideos, getVideoId, getCommentsByVideoId, addComment, getChannels, editDislikes, editLikes, changeSubscribe, getChannelsByVideoId } from "../../api";
 import Header from "../Header";
+import ErrorFallback from "../ErrorFallback";
 
 const VideoDetail = () => {
   const { videoId } = useParams();
@@ -14,6 +15,8 @@ const VideoDetail = () => {
   const [loading, setLoading] = useState(true);
   const [allVideos, setAllVideos] = useState([]);
   const [channel, setChannel] = useState(null);
+  const [error, setError] = useState(null);
+  const [commentError, setCommentError] = useState(null);
 
   const handleVideoClick = (videoId) => {
     navigate(`/video/${videoId}`);
@@ -25,15 +28,32 @@ const VideoDetail = () => {
     const fetchVideoData = async () => {
       try {
         setLoading(true);
+        setError(null);
 
-        setAllVideos(await getVideos() || []);
-        setVideo(await getVideoId(videoId) || null);
-        setComments(await getCommentsByVideoId(videoId) || []);
-        setChannel(await getChannelsByVideoId(videoId) || null);
-        setLoading(false);
+        const [videosData, videoData, commentsData, channelData] = await Promise.all([
+          getVideos(),
+          getVideoId(videoId),
+          getCommentsByVideoId(videoId),
+          getChannelsByVideoId(videoId)
+        ]);
+
+        setAllVideos(videosData || []);
+        setVideo(videoData);
+        setComments(commentsData || []);
+        setChannel(channelData);
+        
+        if (!videoData) {
+          setError('video-fetch');
+        }
       } catch (error) {
         console.error("Error fetching video data:", error);
+        setError('network-error');
+        setAllVideos([]);
+        setVideo(null);
+        setComments([]);
+        setChannel(null);
       } finally {
+        setLoading(false);
       }
     };
 
@@ -62,6 +82,7 @@ const VideoDetail = () => {
   };
   const handleCommentSubmit = async () => {
     if (newComment.trim()) {
+      setCommentError(null);
       const commentData = {
         videoId: parseInt(videoId),
         author: "Siz",
@@ -77,9 +98,12 @@ const VideoDetail = () => {
         if (result) {
           setComments([result, ...comments]);
           setNewComment("");
+        } else {
+          setCommentError('comment-error');
         }
       } catch (error) {
         console.error("Error adding comment:", error);
+        setCommentError('comment-error');
       }
     }
   };
@@ -88,6 +112,29 @@ const VideoDetail = () => {
     return (
       <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
         <Typography>Yuklanmoqda...</Typography>
+      </Box>
+    );
+  }
+
+  if (error) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", p: 2 }}>
+        <ErrorFallback 
+          type={error} 
+          onRetry={() => window.location.reload()}
+        />
+      </Box>
+    );
+  }
+
+  if (!video) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh", p: 2 }}>
+        <ErrorFallback 
+          type="video-fetch" 
+          message="Video topilmadi"
+          onRetry={() => navigate('/')}
+        />
       </Box>
     );
   }
@@ -273,6 +320,14 @@ const VideoDetail = () => {
                 <Typography variant="h6" sx={{ mb: 3, fontSize: "16px" }}>
                   {comments.length} Comments
                 </Typography>
+
+                {/* Comment Error Display */}
+                {commentError && (
+                  <ErrorFallback 
+                    type={commentError} 
+                    onRetry={() => setCommentError(null)}
+                  />
+                )}
 
                 {/* Add Comment */}
                 <Box sx={{ display: "flex", gap: 2, mb: 4 }}>

@@ -7,10 +7,10 @@
       "channelId": 1,
       "time": "2 kun oldin",
       "duration": "15:42",
-      "likes": 11,
-      "dislikes": 13,
-      "likeStatus": false,
-      "dislikeStatus": true,
+      "likes": 12,
+      "dislikes": 12,
+      "likeStatus": true,
+      "dislikeStatus": false,
       "image": "https://picsum.photos/400/250?1",
       "disLikeStatus": false
     },
@@ -253,6 +253,16 @@
       "avatar": "https://picsum.photos/40/40?user",
       "time": "Hozirgina",
       "text": "sdfs",
+      "likes": 0,
+      "replies": []
+    },
+    {
+      "id": "89e2",
+      "videoId": 3,
+      "author": "Siz",
+      "avatar": "https://picsum.photos/40/40?user",
+      "time": "Hozirgina",
+      "text": "salom",
       "likes": 0,
       "replies": []
     }

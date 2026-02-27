@@ -1,6 +1,8 @@
-import React from "react";
+import React, { Profiler } from "react";
 import { Card, CardContent, CardMedia, Typography, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import ErrorFallback from "../ErrorFallback";
+import { logVideoCardRenderTime } from "../../utils/performanceLogger";
 
 const VideoCard = ({ video, channels }) => {
   const navigate = useNavigate();
